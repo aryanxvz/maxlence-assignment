@@ -4,7 +4,6 @@ import User from '../models/user';
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../utils/jwt';
 import { sendVerificationEmail, sendPasswordResetEmail } from '../utils/email';
 import redis from '../config/redis';
-import { AuthRequest } from '../middleware/auth';
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -198,7 +197,7 @@ export const resetPassword = async (req: Request, res: Response) => {
   }
 };
 
-export const logout = async (req: AuthRequest, res: Response) => {
+export const logout = async (req: Request, res: Response) => {
   try {
     if (req.user) {
       await redis.del(`refresh_token:${req.user.userId}`);

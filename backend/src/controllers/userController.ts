@@ -1,10 +1,9 @@
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { Op } from 'sequelize';
 import User from '../models/user';
-import { AuthRequest } from '../middleware/auth';
 import redis from '../config/redis';
 
-export const getUsers = async (req: AuthRequest, res: Response) => {
+export const getUsers = async (req: Request, res: Response) => {
   try {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
@@ -55,7 +54,7 @@ export const getUsers = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const getUserById = async (req: AuthRequest, res: Response) => {
+export const getUserById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -83,7 +82,7 @@ export const getUserById = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const getProfile = async (req: AuthRequest, res: Response) => {
+export const getProfile = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.userId;
 
@@ -102,7 +101,7 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const updateProfile = async (req: AuthRequest, res: Response) => {
+export const updateProfile = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.userId;
     const { firstName, lastName } = req.body;
@@ -139,7 +138,7 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const deleteUser = async (req: AuthRequest, res: Response) => {
+export const deleteUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
